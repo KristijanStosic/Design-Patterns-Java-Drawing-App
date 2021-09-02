@@ -470,10 +470,11 @@ public class DrawingController {
 		cmdToBack.execute();
 		frame.getTextArea().append(cmdToBack.toString());
 		undoStack.push(cmdToBack);
+		undoCounter++;
 		redoStack.clear();
-		frame.getView().repaint();
 		undoRedoButtons();
 		enableDisableButtons();
+		frame.getView().repaint();
 	}
 
 	/* *************************************************** BRING TO BACK ******************************************************** */
@@ -485,9 +486,9 @@ public class DrawingController {
 		undoStack.push(cmdBringToBack);
 		undoCounter++;
 		redoStack.clear();
-		frame.getView().repaint();
 		undoRedoButtons();
-		enableDisableButtons();
+		enableDisableButtons();	
+		frame.getView().repaint();
 	}
 
 	/* *************************************************** TO FRONT ******************************************************** */
@@ -499,9 +500,9 @@ public class DrawingController {
 		undoStack.push(cmdToFront);
 		undoCounter++;
 		redoStack.clear();
-		frame.getView().repaint();
 		undoRedoButtons();
-		enableDisableButtons();
+		enableDisableButtons();	
+		frame.getView().repaint();
 	}
 
 	/* *************************************************** BRING TO FRONT ******************************************************** */
@@ -513,9 +514,9 @@ public class DrawingController {
 		undoStack.push(cmdBringToFront);
 		undoCounter++;
 		redoStack.clear();
-		frame.getView().repaint();
 		undoRedoButtons();
 		enableDisableButtons();
+		frame.getView().repaint();
 	}
 	/* *************************************************** BUTTONS CONTROL WITH OBSERVER ******************************************************** */
 	public void enableDisableButtons() {
