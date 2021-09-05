@@ -727,13 +727,10 @@ public class DrawingController {
 	public void loadLog(File logToLoad) throws IOException {
 		try {
 			frame.getTextArea().setText("");
-
-			// If file does not exist, then also length() method will consider it empty
 			if (logToLoad.length() == 0) {
 				System.out.println("\"" + logToLoad.getName() + "\" file is empty!");
 				return;
 			}
-
 			BufferedReader br = new BufferedReader(new FileReader(logToLoad));
 			String stringLine;
 			/* read log line by line */
@@ -1226,7 +1223,6 @@ public class DrawingController {
 			frame.getBtnUndo().setEnabled(false);
 		}
 	}
-	
 	/* *************************************************** FIND NUMBER OF LEFT BRACKETS OCCURS ******************************************************** */
 	public int findLeftBracket(int n, String line) {
         int occurr = 0;
@@ -1240,7 +1236,6 @@ public class DrawingController {
         }
         return -1;
     }
-	
 	/* *************************************************** FIND NUMBER OF RIGHT BRACKETS OCCURS ******************************************************** */
 	public int findRightBracket(int n, String line) {
         int occurr = 0;
@@ -1254,7 +1249,6 @@ public class DrawingController {
         }
         return -1;
     }
-	
 	/* *************************************************** FIND NUMBER OF COMMAS OCCURS ******************************************************** */
 	public int findComma(int n, String line) {
         int occurr = 0;
@@ -1268,7 +1262,6 @@ public class DrawingController {
         }
         return -1;
     }
-	
 	/* *************************************************** FIND NUMBER OF EQUAL SIGNS OCCURS ******************************************************** */
 	public int findEqualSign(int n, String line) {
         int occurr = 0;
@@ -1281,8 +1274,23 @@ public class DrawingController {
             }
         }
         return -1;
-    }
+    }	
+	/*
+	public int findIndexOf(int n, char c, String s) {
+        int occurr = 0;
+        for(int i = 0; i < s.length(); i++) {
 
+            if(s.charAt(i) == c) {
+                occurr += 1;
+            }
+
+            if(occurr == n) {
+                return i;
+            }
+        }
+        return -1;
+    }
+	*/
 	public ArrayList<Shape> getSelectedShapes() {
 		return selectedShapes;
 	}
