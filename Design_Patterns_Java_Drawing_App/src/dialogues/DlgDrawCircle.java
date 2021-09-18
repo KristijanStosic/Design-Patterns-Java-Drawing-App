@@ -74,6 +74,7 @@ public class DlgDrawCircle extends JDialog {
 		);
 		btnDraw.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pnlSouth.add(btnDraw);
+		getRootPane().setDefaultButton(btnDraw);
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
