@@ -132,6 +132,7 @@ public class DrawingController {
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoStack.push(command);
+					System.out.println("Test");
 				} else {
 					command = new CmdShapeSelect(this, selected);
 					command.execute();
