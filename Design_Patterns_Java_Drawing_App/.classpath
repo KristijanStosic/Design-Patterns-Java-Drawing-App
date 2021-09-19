@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Kile/git/IT79-2018-Stosic-Kristijan-DO/DizajnerskiObrasci/src/heksagon.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Kile/git/Design-Patterns-Java-Drawing-App/Design_Patterns_Java_Drawing_App/src/heksagon.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
