@@ -65,7 +65,7 @@ public class DrawingController {
 	private DrawingModel model;
 	private DrawingFrame frame;
 
-	private Point startPoint;
+	private Point startPoint, endPoint;
 
 	private ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
 	private ArrayList<Shape> undoShapesList = new ArrayList<Shape>();
@@ -160,7 +160,7 @@ public class DrawingController {
 					startPoint = new Point(e.getX(), e.getY());
 					return;
 				}
-				Point endPoint = new Point(e.getX(), e.getY());
+				endPoint = new Point(e.getX(), e.getY());
 				Line l = new Line(startPoint, endPoint, false);
 				l.setColor(edgeColor);
 				command = new CmdShapeAdd(model, l);

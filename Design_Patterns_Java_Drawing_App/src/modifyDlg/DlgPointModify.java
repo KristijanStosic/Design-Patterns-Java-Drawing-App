@@ -8,7 +8,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
@@ -67,7 +66,7 @@ public class DlgPointModify extends JDialog {
 				edgeColor = JColorChooser.showDialog(null, "Choose POINT color", edgeColor);
 				if (edgeColor != null) {
 					btnEdgeColor.setBackground(edgeColor);
-				} 
+				}
 			}
 		});
 		btnEdgeColor.setFont(new Font("Tahoma", Font.PLAIN, 15));
