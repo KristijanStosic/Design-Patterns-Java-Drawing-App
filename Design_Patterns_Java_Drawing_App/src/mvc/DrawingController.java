@@ -462,6 +462,73 @@ public class DrawingController {
 		undoRedoButtons();
 		enableDisableButtons();
 	}
+	
+	/* *************************************************** UNDO ******************************************************** */
+	/*public void undo() {
+        command = undoStack.peek();
+        
+        if(command instanceof CmdShapeRemove) {
+            while (command instanceof CmdShapeRemove) {
+                command.unexecute();
+                this.redoShapesList.add(this.undoShapesList.get(this.undoShapesList.size() - 1));
+                this.selectedShapes.add(this.undoShapesList.get(this.undoShapesList.size() - 1));
+                this.undoShapesList.remove(this.undoShapesList.size() - 1);
+                this.frame.getTextArea().append("Undo " + undoStack.peek().toString());
+                undoCounter--;
+                redoCounter++;
+                undoStack.pop();
+                redoStack.push(command);
+                command = undoStack.peek();
+            }
+        } else {
+            command.unexecute();
+            this.frame.getTextArea().append("Undo " + undoStack.peek().toString());
+            undoCounter--;
+            redoCounter++;
+            undoStack.pop();
+            redoStack.push(command);
+        }
+        frame.repaint();
+        undoRedoButtons();
+        enableDisableButtons();
+    }*/
+	/* *************************************************** UNDO ******************************************************** */
+    
+	/* *************************************************** REDO ******************************************************** */
+    /*public void redo() {
+        command = redoStack.peek();
+        
+        if(command instanceof CmdShapeRemove) {
+            while(command instanceof CmdShapeRemove) {
+                command.execute();
+                this.undoShapesList.add(this.redoShapesList.get(this.redoShapesList.size() - 1));
+                this.selectedShapes.remove(this.redoShapesList.get(this.redoShapesList.size() - 1));
+                this.redoShapesList.remove(this.redoShapesList.size() - 1);
+                this.frame.getTextArea().append("Redo " + redoStack.peek().toString());
+                undoCounter++;
+                redoCounter--;
+                redoStack.pop();
+                undoStack.push(command);
+                if(!redoStack.isEmpty()) {
+                    command = redoStack.peek();
+                } else {
+                    command = null;
+                }
+                
+            }
+        } else {
+            command.execute();
+            this.frame.getTextArea().append("Redo " + redoStack.peek().toString());
+            undoCounter++;
+            redoCounter--;
+            redoStack.pop();
+            undoStack.push(command);            
+        } 
+        frame.repaint();
+        undoRedoButtons();
+        enableDisableButtons();
+    }*/
+    /* *************************************************** REDO ******************************************************** */
 
 	/* *************************************************** TO BACK ******************************************************** */
 	public void toBack() {
