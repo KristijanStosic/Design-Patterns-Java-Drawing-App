@@ -140,7 +140,7 @@ public class DrawingController {
 				}
 				undoCounter++;
 			}
-			
+			redoStack.clear();
 			undoRedoButtons();
 			enableDisableButtons();
 			frame.getView().repaint();
@@ -426,7 +426,7 @@ public class DrawingController {
 	}
 
 	/* *************************************************** UNDO ******************************************************** */
-	public void undo() {
+	/*public void undo() {
 		command = undoStack.peek();
 		command.unexecute();
 		if (command instanceof CmdShapeRemove) {
@@ -442,10 +442,10 @@ public class DrawingController {
 		redoStack.push(command);
 		undoRedoButtons();
 		enableDisableButtons();
-	}
+	}*/
 
 	/* *************************************************** REDO ******************************************************** */
-	public void redo() {
+	/*public void redo() {
 		command = redoStack.peek();
 		command.execute();
 		if (command instanceof CmdShapeRemove) {
@@ -461,10 +461,10 @@ public class DrawingController {
 		undoStack.push(command);
 		undoRedoButtons();
 		enableDisableButtons();
-	}
+	}*/
 	
 	/* *************************************************** UNDO ******************************************************** */
-	/*public void undo() {
+	public void undo() {
         command = undoStack.peek();
         
         if(command instanceof CmdShapeRemove) {
@@ -491,11 +491,11 @@ public class DrawingController {
         frame.repaint();
         undoRedoButtons();
         enableDisableButtons();
-    }*/
+    }
 	/* *************************************************** UNDO ******************************************************** */
     
 	/* *************************************************** REDO ******************************************************** */
-    /*public void redo() {
+    public void redo() {
         command = redoStack.peek();
         
         if(command instanceof CmdShapeRemove) {
@@ -527,7 +527,7 @@ public class DrawingController {
         frame.repaint();
         undoRedoButtons();
         enableDisableButtons();
-    }*/
+    }
     /* *************************************************** REDO ******************************************************** */
 
 	/* *************************************************** TO BACK ******************************************************** */
