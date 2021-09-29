@@ -25,35 +25,35 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import adapter.HexagonAdapter;
 import command.CmdBringToBack;
 import command.CmdBringToFront;
-import command.CmdCircleModify;
-import command.CmdDonutModify;
-import command.CmdHexagonModify;
-import command.CmdLineModify;
-import command.CmdPointModify;
-import command.CmdRectangleModify;
-import command.CmdShapeAdd;
-import command.CmdShapeDeselect;
-import command.CmdShapeRemove;
-import command.CmdShapeSelect;
+import command.CmdModifyCircle;
+import command.CmdModifyDonut;
+import command.CmdModifyHexagon;
+import command.CmdModifyLine;
+import command.CmdModifyPoint;
+import command.CmdModifyRectangle;
+import command.CmdAddShape;
+import command.CmdDeselectShape;
+import command.CmdRemoveShape;
+import command.CmdSelectShape;
 import command.CmdToBack;
 import command.CmdToFront;
 import command.Command;
-import dialogues.DlgDrawCircle;
-import dialogues.DlgDrawDonut;
-import dialogues.DlgDrawHexagon;
-import dialogues.DlgDrawRectangle;
+import dlgModify.DlgCircleModify;
+import dlgModify.DlgDonutModify;
+import dlgModify.DlgHexagonModify;
+import dlgModify.DlgLineModify;
+import dlgModify.DlgPointModify;
+import dlgModify.DlgRectangleModify;
+import dlgdraw.DlgDrawCircle;
+import dlgdraw.DlgDrawDonut;
+import dlgdraw.DlgDrawHexagon;
+import dlgdraw.DlgDrawRectangle;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
-import modifyDlg.DlgCircleModify;
-import modifyDlg.DlgDonutModify;
-import modifyDlg.DlgHexagonModify;
-import modifyDlg.DlgLineModify;
-import modifyDlg.DlgPointModify;
-import modifyDlg.DlgRectangleModify;
 import observer.BtnObserver;
 import observer.BtnObserverUpdate;
 import strategy.SaveLog;
@@ -128,12 +128,12 @@ public class DrawingController {
 
 			if (selected != null) {
 				if (selected.isSelected()) {
-					command = new CmdShapeDeselect(this, selected);
+					command = new CmdDeselectShape(this, selected);
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoStack.push(command);
 				} else {
-					command = new CmdShapeSelect(this, selected);
+					command = new CmdSelectShape(this, selected);
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoStack.push(command);
@@ -149,7 +149,7 @@ public class DrawingController {
 			if (frame.getTglBtnPoint().isSelected()) {
 				Point p = new Point(e.getX(), e.getY());
 				p.setColor(edgeColor);
-				command = new CmdShapeAdd(model, p);
+				command = new CmdAddShape(model, p);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -163,7 +163,7 @@ public class DrawingController {
 				endPoint = new Point(e.getX(), e.getY());
 				Line l = new Line(startPoint, endPoint, false);
 				l.setColor(edgeColor);
-				command = new CmdShapeAdd(model, l);
+				command = new CmdAddShape(model, l);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -171,14 +171,14 @@ public class DrawingController {
 				redoStack.clear();
 				startPoint = null;
 			} else if (frame.getTglBtnRectangle().isSelected()) {
-				DlgDrawRectangle drawRectangle = new DlgDrawRectangle();
-				drawRectangle.setVisible(true);
+				DlgDrawRectangle dlgDrawRectangle = new DlgDrawRectangle();
+				dlgDrawRectangle.setVisible(true);
 
-				if (drawRectangle.isOk()) {
-					Rectangle r = new Rectangle(thirdPoint, Integer.parseInt(drawRectangle.getTxtWidthRectangle().getText()), Integer.parseInt(drawRectangle.getTxtHeightRectangle().getText()));
+				if (dlgDrawRectangle.isOk()) {
+					Rectangle r = new Rectangle(thirdPoint, Integer.parseInt(dlgDrawRectangle.getTxtWidthRectangle().getText()), Integer.parseInt(dlgDrawRectangle.getTxtHeightRectangle().getText()));
 					r.setColor(edgeColor);
 					r.setInnerColor(innerColor);
-					command = new CmdShapeAdd(model, r);
+					command = new CmdAddShape(model, r);
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoCounter++;
@@ -193,7 +193,7 @@ public class DrawingController {
 					Circle c = new Circle(thirdPoint, Integer.parseInt(drawCircle.getTxtRadius().getText()));
 					c.setColor(edgeColor);
 					c.setInnerColor(innerColor);
-					command = new CmdShapeAdd(model, c);
+					command = new CmdAddShape(model, c);
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoCounter++;
@@ -208,7 +208,7 @@ public class DrawingController {
 					Donut d = new Donut(thirdPoint, Integer.parseInt(drawDonut.getTxtDonutRadius().getText()), Integer.parseInt(drawDonut.getTxtDonutInnerRadius().getText()));
 					d.setColor(edgeColor);
 					d.setInnerColor(innerColor);
-					command = new CmdShapeAdd(model, d);
+					command = new CmdAddShape(model, d);
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoCounter++;
@@ -222,7 +222,7 @@ public class DrawingController {
 					HexagonAdapter hexagonAdapter = new HexagonAdapter(thirdPoint, Integer.parseInt(drawHexagon.getTxtRadius().getText()));
 					hexagonAdapter.setHexagonBorderColor(edgeColor);
 					hexagonAdapter.setHexagonInnerColor(innerColor);
-					command = new CmdShapeAdd(model, hexagonAdapter);
+					command = new CmdAddShape(model, hexagonAdapter);
 					command.execute();
 					frame.getTextArea().append(command.toString());
 					undoCounter++;
@@ -240,16 +240,16 @@ public class DrawingController {
 	public void modify() {
 		if (selectedShapes.get(0) instanceof Point) {
 
-			Point pointHelp = (Point) selectedShapes.get(0);
-			dlgPoint.getTxtCX().setText(Integer.toString(pointHelp.getX()));
-			dlgPoint.getTxtCY().setText(Integer.toString(pointHelp.getY()));
-			dlgPoint.getBtnEdgeColor().setBackground(pointHelp.getColor());
+			Point oldPoint = (Point) selectedShapes.get(0);
+			dlgPoint.getTxtCX().setText(Integer.toString(oldPoint.getX()));
+			dlgPoint.getTxtCY().setText(Integer.toString(oldPoint.getY()));
+			dlgPoint.getBtnEdgeColor().setBackground(oldPoint.getColor());
 
 			dlgPoint.setVisible(true);
 
 			if (dlgPoint.isOk()) {
-				Point point = new Point(Integer.parseInt(dlgPoint.getTxtCX().getText()), Integer.parseInt(dlgPoint.getTxtCY().getText()), true, dlgPoint.getBtnEdgeColor().getBackground());
-				command = new CmdPointModify(pointHelp, point);
+				Point newPoint = new Point(Integer.parseInt(dlgPoint.getTxtCX().getText()), Integer.parseInt(dlgPoint.getTxtCY().getText()), true, dlgPoint.getBtnEdgeColor().getBackground());
+				command = new CmdModifyPoint(oldPoint, newPoint);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoStack.push(command);
@@ -259,23 +259,23 @@ public class DrawingController {
 
 		} else if (selectedShapes.get(0) instanceof Line) {
 
-			Line lineHelp = (Line) selectedShapes.get(0);
-			dlgLine.getTxtStartPointX().setText(Integer.toString(lineHelp.getStartPoint().getX()));
-			dlgLine.getTxtStartPointY().setText(Integer.toString(lineHelp.getStartPoint().getY()));
-			dlgLine.getTxtEndPointX().setText(Integer.toString(lineHelp.getEndPoint().getX()));
-			dlgLine.getTxtEndPointY().setText(Integer.toString(lineHelp.getEndPoint().getY()));
-			dlgLine.getBtnEdgeColor().setBackground(lineHelp.getColor());
+			Line oldLine = (Line) selectedShapes.get(0);
+			dlgLine.getTxtStartPointX().setText(Integer.toString(oldLine.getStartPoint().getX()));
+			dlgLine.getTxtStartPointY().setText(Integer.toString(oldLine.getStartPoint().getY()));
+			dlgLine.getTxtEndPointX().setText(Integer.toString(oldLine.getEndPoint().getX()));
+			dlgLine.getTxtEndPointY().setText(Integer.toString(oldLine.getEndPoint().getY()));
+			dlgLine.getBtnEdgeColor().setBackground(oldLine.getColor());
 
 			dlgLine.setVisible(true);
 
 			if (dlgLine.isOk()) {
-				Line line = new Line(
+				Line newLine = new Line(
 						new Point(Integer.parseInt(dlgLine.getTxtStartPointX().getText()),
 								Integer.parseInt(dlgLine.getTxtStartPointY().getText())),
 						new Point(Integer.parseInt(dlgLine.getTxtEndPointX().getText()),
 								Integer.parseInt(dlgLine.getTxtEndPointY().getText())),
 						dlgLine.getBtnEdgeColor().getBackground());
-				command = new CmdLineModify(lineHelp, line);
+				command = new CmdModifyLine(oldLine, newLine);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -284,25 +284,25 @@ public class DrawingController {
 			}
 
 		} else if (selectedShapes.get(0) instanceof Donut) {
-			Donut donutHelp = (Donut) selectedShapes.get(0);
-			dlgDonut.getTxtCenterX().setText(Integer.toString(donutHelp.getCenter().getX()));
-			dlgDonut.getTxtCenterY().setText(Integer.toString(donutHelp.getCenter().getY()));
-			dlgDonut.getTxtRadius().setText(Integer.toString(donutHelp.getRadius()));
-			dlgDonut.getTxtInnerRadius().setText(Integer.toString(donutHelp.getInnerRadius()));
-			dlgDonut.getBtnEdgeColor().setBackground(donutHelp.getColor());
-			dlgDonut.getBtnInnerColor().setBackground(donutHelp.getInnerColor());
+			Donut oldDonut = (Donut) selectedShapes.get(0);
+			dlgDonut.getTxtCenterX().setText(Integer.toString(oldDonut.getCenter().getX()));
+			dlgDonut.getTxtCenterY().setText(Integer.toString(oldDonut.getCenter().getY()));
+			dlgDonut.getTxtRadius().setText(Integer.toString(oldDonut.getRadius()));
+			dlgDonut.getTxtInnerRadius().setText(Integer.toString(oldDonut.getInnerRadius()));
+			dlgDonut.getBtnEdgeColor().setBackground(oldDonut.getColor());
+			dlgDonut.getBtnInnerColor().setBackground(oldDonut.getInnerColor());
 
 			dlgDonut.setVisible(true);
 
 			if (dlgDonut.isOk()) {
-				Donut donut = new Donut(
+				Donut newDonut = new Donut(
 						new Point(Integer.parseInt(dlgDonut.getTxtCenterX().getText()),
 								Integer.parseInt(dlgDonut.getTxtCenterY().getText())),
 						Integer.parseInt(dlgDonut.getTxtRadius().getText()),
 						Integer.parseInt(dlgDonut.getTxtInnerRadius().getText()), true,
 						dlgDonut.getBtnEdgeColor().getBackground(), dlgDonut.getBtnInnerColor().getBackground());
 
-				command = new CmdDonutModify(donutHelp, donut);
+				command = new CmdModifyDonut(oldDonut, newDonut);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -310,23 +310,23 @@ public class DrawingController {
 				redoStack.clear();
 			}
 		} else if (selectedShapes.get(0) instanceof Circle) {
-			Circle circleHelp = (Circle) selectedShapes.get(0);
-			dlgCircle.getTxtXcoordinate().setText(Integer.toString(circleHelp.getCenter().getX()));
-			dlgCircle.getTxtYcoordinate().setText(Integer.toString(circleHelp.getCenter().getY()));
-			dlgCircle.getTxtRadius().setText(Integer.toString(circleHelp.getRadius()));
-			dlgCircle.getBtnEdgeColor().setBackground(circleHelp.getColor());
-			dlgCircle.getBtnInnerColor().setBackground(circleHelp.getInnerColor());
+			Circle oldCircle = (Circle) selectedShapes.get(0);
+			dlgCircle.getTxtXcoordinate().setText(Integer.toString(oldCircle.getCenter().getX()));
+			dlgCircle.getTxtYcoordinate().setText(Integer.toString(oldCircle.getCenter().getY()));
+			dlgCircle.getTxtRadius().setText(Integer.toString(oldCircle.getRadius()));
+			dlgCircle.getBtnEdgeColor().setBackground(oldCircle.getColor());
+			dlgCircle.getBtnInnerColor().setBackground(oldCircle.getInnerColor());
 
 			dlgCircle.setVisible(true);
 
 			if (dlgCircle.isOk()) {
-				Circle circle = new Circle(
+				Circle newCircle = new Circle(
 						new Point(Integer.parseInt(dlgCircle.getTxtXcoordinate().getText()),
 								Integer.parseInt(dlgCircle.getTxtYcoordinate().getText())),
 						Integer.parseInt(dlgCircle.getTxtRadius().getText()), true,
 						dlgCircle.getBtnEdgeColor().getBackground(), dlgCircle.getBtnInnerColor().getBackground());
 
-				command = new CmdCircleModify(circleHelp, circle);
+				command = new CmdModifyCircle(oldCircle, newCircle);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -334,25 +334,25 @@ public class DrawingController {
 				redoStack.clear();
 			}
 		} else if (selectedShapes.get(0) instanceof Rectangle) {
-			Rectangle rectangleHelp = (Rectangle) selectedShapes.get(0);
-			dlgRectangle.getTxtUpperLeftX().setText(Integer.toString(rectangleHelp.getUpperLeftPoint().getX()));
-			dlgRectangle.getTxtUpperLeftY().setText(Integer.toString(rectangleHelp.getUpperLeftPoint().getY()));
-			dlgRectangle.getTxtHeight().setText(Integer.toString(rectangleHelp.getHeight()));
-			dlgRectangle.getTxtWidth().setText(Integer.toString(rectangleHelp.getWidth()));
-			dlgRectangle.getBtnEdgeColor().setBackground(rectangleHelp.getColor());
-			dlgRectangle.getBtnInnerColor().setBackground(rectangleHelp.getInnerColor());
+			Rectangle oldRectangle = (Rectangle) selectedShapes.get(0);
+			dlgRectangle.getTxtUpperLeftX().setText(Integer.toString(oldRectangle.getUpperLeftPoint().getX()));
+			dlgRectangle.getTxtUpperLeftY().setText(Integer.toString(oldRectangle.getUpperLeftPoint().getY()));
+			dlgRectangle.getTxtHeight().setText(Integer.toString(oldRectangle.getHeight()));
+			dlgRectangle.getTxtWidth().setText(Integer.toString(oldRectangle.getWidth()));
+			dlgRectangle.getBtnEdgeColor().setBackground(oldRectangle.getColor());
+			dlgRectangle.getBtnInnerColor().setBackground(oldRectangle.getInnerColor());
 
 			dlgRectangle.setVisible(true);
 
 			if (dlgRectangle.isOk()) {
-				Rectangle rectangle = new Rectangle(
+				Rectangle newRectangle = new Rectangle(
 						new Point(Integer.parseInt(dlgRectangle.getTxtUpperLeftX().getText()),
 								Integer.parseInt(dlgRectangle.getTxtUpperLeftY().getText())),
 						Integer.parseInt(dlgRectangle.getTxtWidth().getText()),
 						Integer.parseInt(dlgRectangle.getTxtHeight().getText()), true,
 						dlgRectangle.getBtnEdgeColor().getBackground(),
 						dlgRectangle.getBtnInnerColor().getBackground());
-				command = new CmdRectangleModify(rectangleHelp, rectangle);
+				command = new CmdModifyRectangle(oldRectangle, newRectangle);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -360,23 +360,23 @@ public class DrawingController {
 				redoStack.clear();
 			}
 		} else if (selectedShapes.get(0) instanceof HexagonAdapter) {
-			HexagonAdapter hexagonHelp = (HexagonAdapter) selectedShapes.get(0);
-			dlgHexagon.getTxtXCoordinate().setText(Integer.toString(hexagonHelp.getHexagon().getX()));
-			dlgHexagon.getTxtYCoordinate().setText(Integer.toString(hexagonHelp.getHexagon().getY()));
-			dlgHexagon.getTxtRadius().setText(Integer.toString(hexagonHelp.getHexagonRadius()));
-			dlgHexagon.getBtnEdgeColor().setBackground(hexagonHelp.getHexagonBorderColor());
-			dlgHexagon.getBtnInnerColor().setBackground(hexagonHelp.getHexagonInnerColor());
+			HexagonAdapter oldHexagon = (HexagonAdapter) selectedShapes.get(0);
+			dlgHexagon.getTxtXCoordinate().setText(Integer.toString(oldHexagon.getHexagon().getX()));
+			dlgHexagon.getTxtYCoordinate().setText(Integer.toString(oldHexagon.getHexagon().getY()));
+			dlgHexagon.getTxtRadius().setText(Integer.toString(oldHexagon.getHexagonRadius()));
+			dlgHexagon.getBtnEdgeColor().setBackground(oldHexagon.getHexagonBorderColor());
+			dlgHexagon.getBtnInnerColor().setBackground(oldHexagon.getHexagonInnerColor());
 
 			dlgHexagon.setVisible(true);
 
 			if (dlgHexagon.isOk()) {
-				HexagonAdapter hexagonAdapter = new HexagonAdapter(
+				HexagonAdapter newHexagon = new HexagonAdapter(
 						new Point(Integer.parseInt(dlgHexagon.getTxtXCoordinate().getText()),
 								Integer.parseInt(dlgHexagon.getTxtYCoordinate().getText())),
 						Integer.parseInt(dlgHexagon.getTxtRadius().getText()), true,
 						dlgHexagon.getBtnEdgeColor().getBackground(), dlgHexagon.getBtnInnerColor().getBackground());
 
-				command = new CmdHexagonModify(hexagonHelp, hexagonAdapter);
+				command = new CmdModifyHexagon(oldHexagon, newHexagon);
 				command.execute();
 				frame.getTextArea().append(command.toString());
 				undoCounter++;
@@ -396,7 +396,7 @@ public class DrawingController {
 
 		for (int i = selectedShapes.size() - 1; i >= 0; i--) {
 			shape = selectedShapes.get(0);
-			command = new CmdShapeRemove(model, shape, model.getShapes().indexOf(shape));
+			command = new CmdRemoveShape(model, shape, model.getShapes().indexOf(shape));
 			command.execute();
 			frame.getTextArea().append(command.toString());
 			selectedShapes.remove(shape);
@@ -467,8 +467,8 @@ public class DrawingController {
 	public void undo() {
         command = undoStack.peek();
         
-        if(command instanceof CmdShapeRemove) {
-            while (command instanceof CmdShapeRemove) {
+        if(command instanceof CmdRemoveShape) {
+            while (command instanceof CmdRemoveShape) {
                 command.unexecute();
                 this.redoShapesList.add(this.undoShapesList.get(this.undoShapesList.size() - 1));
                 this.selectedShapes.add(this.undoShapesList.get(this.undoShapesList.size() - 1));
@@ -498,8 +498,8 @@ public class DrawingController {
     public void redo() {
         command = redoStack.peek();
         
-        if(command instanceof CmdShapeRemove) {
-            while(command instanceof CmdShapeRemove) {
+        if(command instanceof CmdRemoveShape) {
+            while(command instanceof CmdRemoveShape) {
                 command.execute();
                 this.undoShapesList.add(this.redoShapesList.get(this.redoShapesList.size() - 1));
                 this.selectedShapes.remove(this.redoShapesList.get(this.redoShapesList.size() - 1));
@@ -805,6 +805,13 @@ public class DrawingController {
 				logList.add(stringLine);
 			}
 			br.close();
+			frame.getBtnUndo().setEnabled(false);
+			frame.getTglBtnPoint().setEnabled(false);
+			frame.getTglBtnLine().setEnabled(false);
+			frame.getTglBtnCircle().setEnabled(false);
+			frame.getTglBtnDonut().setEnabled(false);
+			frame.getTglBtnRectangle().setEnabled(false);
+			frame.getTglBtnHexagon().setEnabled(false);
 			frame.getBtnLoadNext().setEnabled(true);
 
 		} catch (Exception e) {
@@ -879,22 +886,22 @@ public class DrawingController {
 			}
 			/* *************************************************** ADDED ******************************************************** */
 			if(line.contains("Added")) {	
-				CmdShapeAdd cmdShapeAdd;
+				CmdAddShape cmdShapeAdd;
 				
 				if(line.contains("Undo")) {
-					cmdShapeAdd = (CmdShapeAdd) undoStack.peek();
+					cmdShapeAdd = (CmdAddShape) undoStack.peek();
 					cmdShapeAdd.unexecute();
 					undoStack.pop();
 					redoStack.push(cmdShapeAdd);
 					frame.getTextArea().append("Undo " + cmdShapeAdd.toString());
 				} else if (line.contains("Redo")) {
-					cmdShapeAdd = (CmdShapeAdd) redoStack.peek();
+					cmdShapeAdd = (CmdAddShape) redoStack.peek();
 					cmdShapeAdd.execute(); 
 					redoStack.pop();
 					undoStack.push(cmdShapeAdd);
 					frame.getTextArea().append("Redo " + cmdShapeAdd.toString());
 				} else {
-					cmdShapeAdd = new CmdShapeAdd(model, shape);
+					cmdShapeAdd = new CmdAddShape(model, shape);
 					cmdShapeAdd.execute();
 					undoStack.push(cmdShapeAdd);
 					redoStack.clear(); 
@@ -902,23 +909,23 @@ public class DrawingController {
 				}
 			/* *************************************************** SELECTED ******************************************************** */
 			} else if(line.contains("Selected")) {
-				CmdShapeSelect cmdShapeSelect;
+				CmdSelectShape cmdShapeSelect;
 				
 				if (line.contains("Undo")) {
-					cmdShapeSelect = (CmdShapeSelect) undoStack.peek();
+					cmdShapeSelect = (CmdSelectShape) undoStack.peek();
 					cmdShapeSelect.unexecute(); 
 					undoStack.pop();
 					redoStack.push(cmdShapeSelect);
 					frame.getTextArea().append("Undo " + cmdShapeSelect.toString());
 				} else if (line.contains("Redo")) {
-					cmdShapeSelect = (CmdShapeSelect) redoStack.peek();
+					cmdShapeSelect = (CmdSelectShape) redoStack.peek();
 					cmdShapeSelect.execute(); 
 					redoStack.pop();
 					undoStack.push(cmdShapeSelect);
 					frame.getTextArea().append("Undo " + cmdShapeSelect.toString());
 				} else {
 					shape = model.getShapes().get(model.getShapes().indexOf(shape));
-					cmdShapeSelect = new CmdShapeSelect(this, shape);
+					cmdShapeSelect = new CmdSelectShape(this, shape);
 					cmdShapeSelect.execute(); 
 					undoStack.push(cmdShapeSelect);
 					redoStack.clear();
@@ -926,23 +933,23 @@ public class DrawingController {
 				}
 			/* *************************************************** DESELECTED ******************************************************** */
 			} else if (line.contains("Deselected")) {
-				CmdShapeDeselect cmdShapeDeselect;
+				CmdDeselectShape cmdShapeDeselect;
 				
 				if(line.contains("Undo")) {
-					cmdShapeDeselect = (CmdShapeDeselect) undoStack.peek();
+					cmdShapeDeselect = (CmdDeselectShape) undoStack.peek();
 					cmdShapeDeselect.unexecute(); 
 					undoStack.pop();
 					redoStack.push(cmdShapeDeselect);
 					frame.getTextArea().append("Undo " + cmdShapeDeselect.toString());
 				} else if (line.contains("Redo")) {
-					cmdShapeDeselect = (CmdShapeDeselect) redoStack.peek();
+					cmdShapeDeselect = (CmdDeselectShape) redoStack.peek();
 					cmdShapeDeselect.execute(); 
 					redoStack.pop();
 					undoStack.push(cmdShapeDeselect);
 					frame.getTextArea().append("Redo " + cmdShapeDeselect.toString());
 				} else {
 					shape = selectedShapes.get(selectedShapes.indexOf(shape));
-					cmdShapeDeselect = new CmdShapeDeselect(this, shape);
+					cmdShapeDeselect = new CmdDeselectShape(this, shape);
 					cmdShapeDeselect.execute(); 
 					undoStack.push(cmdShapeDeselect);
 					redoStack.clear(); 
@@ -950,10 +957,10 @@ public class DrawingController {
 				}
 			/* *************************************************** REMOVED ******************************************************** */
 			} else if (line.contains("Removed")) {
-				CmdShapeRemove cmdShapeRemove;
+				CmdRemoveShape cmdShapeRemove;
 				
 				if(line.contains("Undo")) {
-					cmdShapeRemove = (CmdShapeRemove) undoStack.peek();
+					cmdShapeRemove = (CmdRemoveShape) undoStack.peek();
 					cmdShapeRemove.unexecute(); 
 					redoShapesList.add(undoShapesList.get(undoShapesList.size() - 1));
 					selectedShapes.add(undoShapesList.get(undoShapesList.size() - 1));
@@ -962,7 +969,7 @@ public class DrawingController {
 					redoStack.push(cmdShapeRemove);
 					frame.getTextArea().append("Undo " + cmdShapeRemove.toString());
 				} else if (line.contains("Redo")) {
-					cmdShapeRemove = (CmdShapeRemove) redoStack.peek();
+					cmdShapeRemove = (CmdRemoveShape) redoStack.peek();
 					cmdShapeRemove.execute(); 
 					undoShapesList.add(redoShapesList.get(redoShapesList.size() - 1));
 					selectedShapes.remove(redoShapesList.get(redoShapesList.size() - 1));
@@ -972,7 +979,7 @@ public class DrawingController {
 					frame.getTextArea().append("Redo " + cmdShapeRemove.toString());
 				} else {
 					shape = selectedShapes.get(0);
-					cmdShapeRemove = new CmdShapeRemove(model, shape, model.getShapes().indexOf(shape));
+					cmdShapeRemove = new CmdRemoveShape(model, shape, model.getShapes().indexOf(shape));
 					cmdShapeRemove.execute();
 					selectedShapes.remove(shape);
 					undoShapesList.add(shape);
@@ -1076,16 +1083,16 @@ public class DrawingController {
 			/* *************************************************** MODIFY ******************************************************** */
 			} else if (line.contains("Modified")) {
 				if (shape instanceof Point) {
-					CmdPointModify cmdPointModify;
+					CmdModifyPoint cmdPointModify;
 					
 					if(line.contains("Undo")) {
-						cmdPointModify = (CmdPointModify) undoStack.peek();
+						cmdPointModify = (CmdModifyPoint) undoStack.peek();
 						cmdPointModify.unexecute();
 						undoStack.pop();
 						redoStack.push(cmdPointModify);
 						frame.getTextArea().append("Undo " + cmdPointModify.toString());
 					} else if (line.contains("Redo")) {
-						cmdPointModify = (CmdPointModify) redoStack.peek();
+						cmdPointModify = (CmdModifyPoint) redoStack.peek();
 						cmdPointModify.execute(); 
 						redoStack.pop();
 						undoStack.push(cmdPointModify);
@@ -1098,23 +1105,23 @@ public class DrawingController {
 						newPoint.setY(Integer.parseInt(line.substring(findComma(3, line) + 2, findRightBracket(3, line))));
 						newPoint.setColor(new Color(Integer.parseInt(line.substring(findLeftBracket(4, line) + 1, findRightBracket(4, line)))));
 
-						cmdPointModify = new CmdPointModify((Point) shape, newPoint);
+						cmdPointModify = new CmdModifyPoint((Point) shape, newPoint);
 						cmdPointModify.execute();
 						undoStack.push(cmdPointModify);
 						redoStack.clear();
 						frame.getTextArea().append(cmdPointModify.toString());
 					}
 				} else if (shape instanceof Line) {
-					CmdLineModify cmdLineModify;
+					CmdModifyLine cmdLineModify;
 					
 					if(line.contains("Undo")) {
-						cmdLineModify = (CmdLineModify) undoStack.peek();
+						cmdLineModify = (CmdModifyLine) undoStack.peek();
 						cmdLineModify.unexecute();
 						undoStack.pop();
 						redoStack.push(cmdLineModify);
 						frame.getTextArea().append("Undo " + cmdLineModify.toString());
 					} else if (line.contains("Redo")) {
-						cmdLineModify = (CmdLineModify) redoStack.peek();
+						cmdLineModify = (CmdModifyLine) redoStack.peek();
 						cmdLineModify.execute(); 
 						redoStack.pop();
 						undoStack.push(cmdLineModify);
@@ -1132,23 +1139,23 @@ public class DrawingController {
 						Line newLine = new Line(newStartPoint, newEndPoint);
 						newLine.setColor(new Color(Integer.parseInt(line.substring(findLeftBracket(6, line) + 1, findRightBracket(6, line)))));
 
-						cmdLineModify = new CmdLineModify((Line) shape, newLine);
+						cmdLineModify = new CmdModifyLine((Line) shape, newLine);
 						cmdLineModify.execute();
 						undoStack.push(cmdLineModify);
 						redoStack.clear();
 						frame.getTextArea().append(cmdLineModify.toString());
 					}
 				} else if (shape instanceof HexagonAdapter) {
-					CmdHexagonModify cmdHexagonModify;
+					CmdModifyHexagon cmdHexagonModify;
 					
 					if(line.contains("Undo")) {
-						cmdHexagonModify = (CmdHexagonModify) undoStack.peek();
+						cmdHexagonModify = (CmdModifyHexagon) undoStack.peek();
 						cmdHexagonModify.unexecute(); 
 						undoStack.pop();
 						redoStack.push(cmdHexagonModify);
 						frame.getTextArea().append("Undo " + cmdHexagonModify.toString());
 					} else if (line.contains("Redo")) {
-						cmdHexagonModify = (CmdHexagonModify) redoStack.peek();
+						cmdHexagonModify = (CmdModifyHexagon) redoStack.peek();
 						cmdHexagonModify.execute(); 
 						redoStack.pop();
 						undoStack.push(cmdHexagonModify);
@@ -1166,23 +1173,23 @@ public class DrawingController {
 						
 						HexagonAdapter newHexagon = new HexagonAdapter(center, radius, new Color(edgeColor), new Color(innerColor));
 						
-						cmdHexagonModify = new CmdHexagonModify((HexagonAdapter) shape, newHexagon);
+						cmdHexagonModify = new CmdModifyHexagon((HexagonAdapter) shape, newHexagon);
 						cmdHexagonModify.execute();
 						undoStack.push(cmdHexagonModify);
 						redoStack.clear();
 						frame.getTextArea().append(cmdHexagonModify.toString());
 					}
 				} else if (shape instanceof Rectangle) {
-					CmdRectangleModify cmdRectangleModify;
+					CmdModifyRectangle cmdRectangleModify;
 					
 					if (line.contains("Undo")) {
-						cmdRectangleModify = (CmdRectangleModify) undoStack.peek();
+						cmdRectangleModify = (CmdModifyRectangle) undoStack.peek();
 						cmdRectangleModify.unexecute();
 						undoStack.pop();
 						redoStack.push(cmdRectangleModify);
 						frame.getTextArea().append(cmdRectangleModify.toString());
 					} else if (line.contains("Redo")) {
-						cmdRectangleModify = (CmdRectangleModify) redoStack.peek();
+						cmdRectangleModify = (CmdModifyRectangle) redoStack.peek();
 						cmdRectangleModify.execute(); 
 						redoStack.pop();
 						undoStack.push(cmdRectangleModify);
@@ -1203,23 +1210,23 @@ public class DrawingController {
 					
 						Rectangle newRectangle = new Rectangle(upperLeftPoint, width, height, new Color(edgeColor), new Color(innerColor));
 						
-						cmdRectangleModify = new CmdRectangleModify((Rectangle) shape, newRectangle);
+						cmdRectangleModify = new CmdModifyRectangle((Rectangle) shape, newRectangle);
 						cmdRectangleModify.execute(); 
 						undoStack.push(cmdRectangleModify);
 						redoStack.clear();
 						frame.getTextArea().append(cmdRectangleModify.toString());
 					}
 				} else if (shape instanceof Donut) {
-					CmdDonutModify cmdDonutModify;
+					CmdModifyDonut cmdDonutModify;
 					
 					if(line.contains("Undo")) {
-						cmdDonutModify = (CmdDonutModify) undoStack.peek();
+						cmdDonutModify = (CmdModifyDonut) undoStack.peek();
 						cmdDonutModify.unexecute(); 
 						undoStack.pop();
 						redoStack.push(cmdDonutModify);
 						frame.getTextArea().append("Undo " + cmdDonutModify.toString());
 					} else if (line.contains("Redo")) {
-						cmdDonutModify = (CmdDonutModify) redoStack.peek();
+						cmdDonutModify = (CmdModifyDonut) redoStack.peek();
 						cmdDonutModify.execute(); 
 						redoStack.pop();
 						undoStack.push(cmdDonutModify);
@@ -1240,23 +1247,23 @@ public class DrawingController {
 						
 						Donut newDonut = new Donut(center, radius, innerRadius, new Color(edgeColor), new Color(innerColor));
 						
-						cmdDonutModify = new CmdDonutModify((Donut) shape, newDonut);
+						cmdDonutModify = new CmdModifyDonut((Donut) shape, newDonut);
 						cmdDonutModify.execute(); 
 						undoStack.push(cmdDonutModify);
 						redoStack.clear();
 						frame.getTextArea().append(cmdDonutModify.toString());	
 					}
 				} else if (shape instanceof Circle) {
-					CmdCircleModify cmdCircleModify;
+					CmdModifyCircle cmdCircleModify;
 					
 					if(line.contains("Undo")) {
-						cmdCircleModify = (CmdCircleModify) undoStack.peek();
+						cmdCircleModify = (CmdModifyCircle) undoStack.peek();
 						cmdCircleModify.unexecute(); 
 						undoStack.pop();
 						redoStack.push(cmdCircleModify);
 						frame.getTextArea().append("Undo " + cmdCircleModify.toString());
 					} else if (line.contains("Redo")) {
-						cmdCircleModify = (CmdCircleModify) redoStack.peek();
+						cmdCircleModify = (CmdModifyCircle) redoStack.peek();
 						cmdCircleModify.execute(); 
 						redoStack.pop();
 						undoStack.push(cmdCircleModify);
@@ -1274,7 +1281,7 @@ public class DrawingController {
 						
 						Circle newCircle = new Circle(center, radius, new Color(edgeColor), new Color(innerColor));
 						
-						cmdCircleModify = new CmdCircleModify((Circle) shape, newCircle);
+						cmdCircleModify = new CmdModifyCircle((Circle) shape, newCircle);
 						cmdCircleModify.execute(); 
 						undoStack.push(cmdCircleModify);
 						redoStack.clear();
@@ -1286,8 +1293,14 @@ public class DrawingController {
 			frame.repaint();
 		} else {
 			frame.getBtnLoadNext().setEnabled(false);
-			enableDisableButtons();
 			frame.getBtnUndo().setEnabled(false);
+			frame.getTglBtnPoint().setEnabled(true);
+			frame.getTglBtnLine().setEnabled(true);
+			frame.getTglBtnCircle().setEnabled(true);
+			frame.getTglBtnDonut().setEnabled(true);
+			frame.getTglBtnRectangle().setEnabled(true);
+			frame.getTglBtnHexagon().setEnabled(true);
+			enableDisableButtons();
 		}
 	}
 	/* *************************************************** FIND NUMBER OF LEFT BRACKETS OCCURS ******************************************************** */

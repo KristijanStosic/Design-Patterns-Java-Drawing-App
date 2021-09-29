@@ -3,11 +3,11 @@ package command;
 import geometry.Shape;
 import mvc.DrawingModel;
 
-public class CmdShapeAdd implements Command {
+public class CmdAddShape implements Command {
 	private Shape shape;
 	private DrawingModel model;
 	
-	public CmdShapeAdd(DrawingModel model, Shape shape) {
+	public CmdAddShape(DrawingModel model, Shape shape) {
 		this.model = model;
 		this.shape = shape;
 	}

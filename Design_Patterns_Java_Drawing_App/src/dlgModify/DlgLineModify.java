@@ -1,4 +1,4 @@
-package modifyDlg;
+package dlgModify;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

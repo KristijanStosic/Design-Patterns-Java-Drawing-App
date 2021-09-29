@@ -85,7 +85,6 @@ public class HexagonAdapter extends SurfaceShape {
 	@Override
 	public void draw(Graphics g) {
 		this.hexagon.paint(g);
-
 	}
 
 	@Override

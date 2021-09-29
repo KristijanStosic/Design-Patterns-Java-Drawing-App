@@ -3,11 +3,11 @@ package command;
 import geometry.Shape;
 import mvc.DrawingController;
 
-public class CmdShapeDeselect implements Command {
+public class CmdDeselectShape implements Command {
 	private DrawingController controller;
 	private Shape shape;
 
-	public CmdShapeDeselect(DrawingController controller, Shape shape) {
+	public CmdDeselectShape(DrawingController controller, Shape shape) {
 		this.controller = controller;
 		this.shape = shape;
 	}

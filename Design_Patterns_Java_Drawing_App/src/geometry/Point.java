@@ -55,7 +55,7 @@ public class Point extends Shape {
 		g.drawLine(this.x, this.y - 4, this.x, this.y + 4);
 
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
+			g.setColor(Color.BLACK);
 			g.drawRect(this.x - 4, this.y - 4, 8, 8);
 		}
 

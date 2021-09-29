@@ -36,19 +36,11 @@ public class Donut extends Circle {
 		setInnerColor(innerColor);
 	}
 
-	public Donut(Point center, int radius, int innerRadius, Color edgeColor, Color innerColor) {
+	public Donut(Point center, int radius, int innerRadius, Color color, Color innerColor) {
 		super(center, radius);
 		this.innerRadius = innerRadius;
-		if (innerColor == null) {
-			setInnerColor(Color.BLACK);
-		} else {
-			setInnerColor(innerColor);
-		}
-		if (edgeColor == null) {
-			setColor(Color.BLACK);
-		} else {
-			setColor(edgeColor);
-		}
+		this.setColor(color);
+		this.setInnerColor(innerColor);
 	}
 
 	/*

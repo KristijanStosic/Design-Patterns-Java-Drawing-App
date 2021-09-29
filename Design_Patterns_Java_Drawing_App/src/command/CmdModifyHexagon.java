@@ -1,13 +1,14 @@
 package command;
 
-import geometry.Rectangle;
+import adapter.HexagonAdapter;
+import geometry.Point;
 
-public class CmdRectangleModify implements Command {
-	private Rectangle oldState;
-	private Rectangle newState;
-	private Rectangle original = new Rectangle();
+public class CmdModifyHexagon implements Command {
+	private HexagonAdapter oldState;
+	private HexagonAdapter newState;
+	private HexagonAdapter original = new HexagonAdapter(new Point(0, 0), 0);
 
-	public CmdRectangleModify(Rectangle oldState, Rectangle newState) {
+	public CmdModifyHexagon(HexagonAdapter oldState, HexagonAdapter newState) {
 		this.oldState = oldState;
 		this.newState = newState;
 	}
@@ -27,4 +28,5 @@ public class CmdRectangleModify implements Command {
 	public String toString() {
 		return "Modified - " + this.original + " " + "->" + " " + this.newState + "\n";
 	}
+
 }

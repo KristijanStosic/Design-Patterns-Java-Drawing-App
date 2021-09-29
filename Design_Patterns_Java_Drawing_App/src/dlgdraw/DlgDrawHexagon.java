@@ -1,11 +1,10 @@
-package dialogues;
+package dlgdraw;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -15,6 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class DlgDrawHexagon extends JDialog {
@@ -36,13 +36,13 @@ public class DlgDrawHexagon extends JDialog {
 	}
 
 	public DlgDrawHexagon() {
-		setBounds(100, 100, 300, 200);
+		setBounds(100, 100, 300, 250);
 		setTitle("Draw hexagon");
 		setResizable(false);
 		setModal(true);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
 		JLabel lblRadius = new JLabel("Radius:");
@@ -53,24 +53,32 @@ public class DlgDrawHexagon extends JDialog {
 		JLabel lblDrawHexagon = new JLabel("Hexagon");
 		lblDrawHexagon.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel
-				.setHorizontalGroup(
-						gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPanel.createSequentialGroup().addGap(36).addComponent(lblRadius)
-										.addPreferredGap(ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, 110,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(23))
-								.addGroup(gl_contentPanel.createSequentialGroup().addGap(76)
-										.addComponent(lblDrawHexagon).addContainerGap(127, Short.MAX_VALUE)));
-		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPanel
-				.createSequentialGroup().addContainerGap().addComponent(lblDrawHexagon).addGap(31)
-				.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblRadius).addComponent(
-						txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap(55, Short.MAX_VALUE)));
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGap(28)
+					.addComponent(lblRadius)
+					.addGap(18)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblDrawHexagon)
+						.addComponent(txtRadius, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGap(42)
+					.addComponent(lblDrawHexagon)
+					.addGap(43)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblRadius))
+					.addContainerGap(38, Short.MAX_VALUE))
+		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnDraw = new JButton("Draw");
@@ -119,14 +127,23 @@ public class DlgDrawHexagon extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 			}
 			GroupLayout gl_buttonPane = new GroupLayout(buttonPane);
-			gl_buttonPane.setHorizontalGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_buttonPane.createSequentialGroup().addGap(74).addComponent(btnDraw)
-							.addPreferredGap(ComponentPlacement.RELATED).addComponent(cancelButton).addGap(92)));
-			gl_buttonPane.setVerticalGroup(gl_buttonPane.createParallelGroup(Alignment.LEADING)
+			gl_buttonPane.setHorizontalGroup(
+				gl_buttonPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_buttonPane.createSequentialGroup()
-							.addGroup(gl_buttonPane.createParallelGroup(Alignment.BASELINE).addComponent(btnDraw)
-									.addComponent(cancelButton))
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+						.addGap(116)
+						.addComponent(btnDraw)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(cancelButton)
+						.addGap(18))
+			);
+			gl_buttonPane.setVerticalGroup(
+				gl_buttonPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(Alignment.TRAILING, gl_buttonPane.createSequentialGroup()
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(gl_buttonPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnDraw)
+							.addComponent(cancelButton)))
+			);
 			buttonPane.setLayout(gl_buttonPane);
 		}
 	}

@@ -65,7 +65,7 @@ public class Circle extends SurfaceShape {
 		g.drawOval(this.center.getX() - radius, this.center.getY() - radius, this.radius * 2, this.radius * 2);
 		fill(g);
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
+			g.setColor(Color.BLACK);
 			g.drawRect(this.center.getX() - 3, this.center.getY() - 3, 6, 6);
 			g.drawRect(this.center.getX() - radius - 3, this.center.getY() - 3, 6, 6);
 			g.drawRect(this.center.getX() + radius - 3, this.center.getY() - 3, 6, 6);
@@ -101,7 +101,7 @@ public class Circle extends SurfaceShape {
 	}
 
 	public void selectCircle(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.BLACK);
 		g.drawRect(this.center.getX() - 3, this.center.getY() - 3, 6, 6);
 		g.drawRect(this.center.getX() - radius - 3, this.center.getY() - 3, 6, 6);
 		g.drawRect(this.center.getX() + radius - 3, this.center.getY() - 3, 6, 6);

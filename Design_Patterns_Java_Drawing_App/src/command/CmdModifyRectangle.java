@@ -1,13 +1,13 @@
 package command;
 
-import geometry.Donut;
+import geometry.Rectangle;
 
-public class CmdDonutModify implements Command {
-	private Donut oldState;
-	private Donut newState;
-	private Donut original = new Donut();
+public class CmdModifyRectangle implements Command {
+	private Rectangle oldState;
+	private Rectangle newState;
+	private Rectangle original = new Rectangle();
 
-	public CmdDonutModify(Donut oldState, Donut newState) {
+	public CmdModifyRectangle(Rectangle oldState, Rectangle newState) {
 		this.oldState = oldState;
 		this.newState = newState;
 	}
@@ -27,5 +27,4 @@ public class CmdDonutModify implements Command {
 	public String toString() {
 		return "Modified - " + this.original + " " + "->" + " " + this.newState + "\n";
 	}
-
 }

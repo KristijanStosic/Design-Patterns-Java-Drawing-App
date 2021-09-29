@@ -1,14 +1,13 @@
 package command;
 
-import geometry.Point;
+import geometry.Circle;
 
-public class CmdPointModify implements Command {
+public class CmdModifyCircle implements Command {
+	private Circle oldState;
+	private Circle newState;
+	private Circle original = new Circle();
 
-	private Point oldState;
-	private Point newState;
-	private Point original = new Point();
-
-	public CmdPointModify(Point oldState, Point newState) {
+	public CmdModifyCircle(Circle oldState, Circle newState) {
 		this.oldState = oldState;
 		this.newState = newState;
 	}
@@ -17,6 +16,7 @@ public class CmdPointModify implements Command {
 	public void execute() {
 		original = oldState.clone(original);
 		oldState = newState.clone(oldState);
+
 	}
 
 	@Override
@@ -28,5 +28,4 @@ public class CmdPointModify implements Command {
 	public String toString() {
 		return "Modified - " + this.original + " " + "->" + " " + this.newState + "\n";
 	}
-
 }

@@ -1,4 +1,4 @@
-package dialogues;
+package dlgdraw;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.EtchedBorder;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
 public class DlgDrawCircle extends JDialog {
@@ -38,6 +40,7 @@ public class DlgDrawCircle extends JDialog {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel pnlSouth = new JPanel();
+		pnlSouth.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		getContentPane().add(pnlSouth, BorderLayout.SOUTH);
 
 		JButton btnDraw = new JButton("Draw");
@@ -73,7 +76,6 @@ public class DlgDrawCircle extends JDialog {
 
 		);
 		btnDraw.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnlSouth.add(btnDraw);
 		getRootPane().setDefaultButton(btnDraw);
 
 		JButton btnCancel = new JButton("Cancel");
@@ -84,9 +86,28 @@ public class DlgDrawCircle extends JDialog {
 			}
 		});
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		pnlSouth.add(btnCancel);
+		GroupLayout gl_pnlSouth = new GroupLayout(pnlSouth);
+		gl_pnlSouth.setHorizontalGroup(
+			gl_pnlSouth.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlSouth.createSequentialGroup()
+					.addGap(111)
+					.addComponent(btnDraw)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnCancel)
+					.addGap(19))
+		);
+		gl_pnlSouth.setVerticalGroup(
+			gl_pnlSouth.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlSouth.createSequentialGroup()
+					.addGap(5)
+					.addGroup(gl_pnlSouth.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancel)
+						.addComponent(btnDraw)))
+		);
+		pnlSouth.setLayout(gl_pnlSouth);
 
 		JPanel pnlCenter = new JPanel();
+		pnlCenter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		getContentPane().add(pnlCenter, BorderLayout.CENTER);
 
 		JLabel lblRadius = new JLabel("Radius:");
@@ -98,23 +119,28 @@ public class DlgDrawCircle extends JDialog {
 		JLabel lblDrawCircle = new JLabel("Circle");
 		lblDrawCircle.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		GroupLayout gl_pnlCenter = new GroupLayout(pnlCenter);
-		gl_pnlCenter
-				.setHorizontalGroup(
-						gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_pnlCenter.createSequentialGroup().addContainerGap(52, Short.MAX_VALUE)
-										.addComponent(lblRadius).addGap(46)
-										.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, 113,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(36))
-								.addGroup(Alignment.LEADING, gl_pnlCenter.createSequentialGroup().addGap(105)
-										.addComponent(lblDrawCircle).addContainerGap(147, Short.MAX_VALUE)));
-		gl_pnlCenter.setVerticalGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlCenter.createSequentialGroup().addContainerGap().addComponent(lblDrawCircle).addGap(26)
-						.addGroup(gl_pnlCenter.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblRadius))
-						.addContainerGap(54, Short.MAX_VALUE)));
+		gl_pnlCenter.setHorizontalGroup(
+			gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_pnlCenter.createSequentialGroup()
+					.addContainerGap(42, Short.MAX_VALUE)
+					.addComponent(lblRadius)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblDrawCircle)
+						.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE))
+					.addGap(18))
+		);
+		gl_pnlCenter.setVerticalGroup(
+			gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlCenter.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblDrawCircle)
+					.addGap(26)
+					.addGroup(gl_pnlCenter.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblRadius)
+						.addComponent(txtRadius, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(40, Short.MAX_VALUE))
+		);
 		pnlCenter.setLayout(gl_pnlCenter);
 	}
 

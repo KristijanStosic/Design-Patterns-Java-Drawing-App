@@ -3,12 +3,12 @@ package command;
 import geometry.Shape;
 import mvc.DrawingModel;
 
-public class CmdShapeRemove implements Command {
+public class CmdRemoveShape implements Command {
 	private Shape shape;
 	private DrawingModel model;
 	private int index; // prilikom brisanja kada se uradi undo da vrati na odredjeni index
 	
-	public CmdShapeRemove(DrawingModel model, Shape shape, int index) {
+	public CmdRemoveShape(DrawingModel model, Shape shape, int index) {
 		this.model = model;
 		this.shape = shape;
 		this.index = index;

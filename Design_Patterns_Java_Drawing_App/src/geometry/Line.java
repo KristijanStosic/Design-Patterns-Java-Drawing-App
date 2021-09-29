@@ -63,7 +63,7 @@ public class Line extends Shape {
 		g.drawLine(this.startPoint.getX(), this.startPoint.getY(), this.endPoint.getX(), this.endPoint.getY());
 
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
+			g.setColor(Color.BLACK);
 			g.drawRect(this.startPoint.getX() - 3, this.startPoint.getY() - 3, 6, 6);
 			g.drawRect(this.endPoint.getX() - 3, this.endPoint.getY() - 3, 6, 6);
 			g.drawRect(middleOfLine().getX() - 3, middleOfLine().getY() - 3, 6, 6);

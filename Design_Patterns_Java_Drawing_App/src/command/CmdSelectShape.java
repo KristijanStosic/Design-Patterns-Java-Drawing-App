@@ -3,11 +3,11 @@ package command;
 import geometry.Shape;
 import mvc.DrawingController;
 
-public class CmdShapeSelect implements Command {
+public class CmdSelectShape implements Command {
 	private DrawingController controller;
 	private Shape shape;
 
-	public CmdShapeSelect(DrawingController controller, Shape shape) {
+	public CmdSelectShape(DrawingController controller, Shape shape) {
 		this.controller = controller;
 		this.shape = shape;
 	}

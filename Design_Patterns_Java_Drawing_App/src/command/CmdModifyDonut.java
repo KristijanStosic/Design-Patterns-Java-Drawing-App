@@ -1,14 +1,13 @@
 package command;
 
-import geometry.Line;
+import geometry.Donut;
 
-public class CmdLineModify implements Command {
+public class CmdModifyDonut implements Command {
+	private Donut oldState;
+	private Donut newState;
+	private Donut original = new Donut();
 
-	private Line oldState;
-	private Line newState;
-	private Line original = new Line();
-
-	public CmdLineModify(Line oldState, Line newState) {
+	public CmdModifyDonut(Donut oldState, Donut newState) {
 		this.oldState = oldState;
 		this.newState = newState;
 	}

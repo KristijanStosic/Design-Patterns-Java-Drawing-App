@@ -1,10 +1,9 @@
-package dialogues;
+package dlgdraw;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
@@ -14,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+
 
 @SuppressWarnings("serial")
 public class DlgDrawRectangle extends JDialog {
@@ -39,13 +40,13 @@ public class DlgDrawRectangle extends JDialog {
 	}
 
 	public DlgDrawRectangle() {
-		setBounds(100, 100, 320, 250);
+		setBounds(100, 100, 300, 250);
 		setTitle("Draw rectangle");
 		setModal(true);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
-		pnlNorth.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlNorth.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		getContentPane().add(pnlNorth, BorderLayout.CENTER);
 		lblRectangle = new JLabel("Rectangle");
 		lblRectangle.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -60,31 +61,39 @@ public class DlgDrawRectangle extends JDialog {
 		txtHeightRectangle = new JTextField();
 		txtHeightRectangle.setColumns(10);
 		GroupLayout gl_pnlNorth = new GroupLayout(pnlNorth);
-		gl_pnlNorth.setHorizontalGroup(gl_pnlNorth.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlNorth.createSequentialGroup().addGap(102).addComponent(lblRectangle)
-						.addContainerGap(126, Short.MAX_VALUE))
-				.addGroup(gl_pnlNorth.createSequentialGroup().addGap(32)
-						.addGroup(gl_pnlNorth.createParallelGroup(Alignment.LEADING).addComponent(lblWidth)
-								.addComponent(lblHeight))
-						.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-						.addGroup(gl_pnlNorth.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(txtHeightRectangle)
-								.addComponent(txtWidthRectangle, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
-						.addContainerGap(39, Short.MAX_VALUE)));
-		gl_pnlNorth.setVerticalGroup(gl_pnlNorth.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlNorth
-				.createSequentialGroup().addContainerGap().addComponent(lblRectangle)
-				.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-				.addGroup(gl_pnlNorth
-						.createParallelGroup(Alignment.BASELINE).addComponent(lblWidth).addComponent(txtWidthRectangle,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(33)
-				.addGroup(gl_pnlNorth.createParallelGroup(Alignment.BASELINE).addComponent(lblHeight).addComponent(
-						txtHeightRectangle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(23)));
+		gl_pnlNorth.setHorizontalGroup(
+			gl_pnlNorth.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlNorth.createSequentialGroup()
+					.addGap(32)
+					.addGroup(gl_pnlNorth.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblWidth)
+						.addComponent(lblHeight))
+					.addGap(18)
+					.addGroup(gl_pnlNorth.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblRectangle)
+						.addComponent(txtWidthRectangle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+						.addComponent(txtHeightRectangle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_pnlNorth.setVerticalGroup(
+			gl_pnlNorth.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_pnlNorth.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblRectangle)
+					.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+					.addGroup(gl_pnlNorth.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWidth)
+						.addComponent(txtWidthRectangle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(33)
+					.addGroup(gl_pnlNorth.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblHeight)
+						.addComponent(txtHeightRectangle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(23))
+		);
 		pnlNorth.setLayout(gl_pnlNorth);
 		{
 			JPanel pnlSouth = new JPanel();
+			pnlSouth.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			getContentPane().add(pnlSouth, BorderLayout.SOUTH);
 			{
 				btnDraw = new JButton("Draw");
@@ -136,17 +145,20 @@ public class DlgDrawRectangle extends JDialog {
 			}
 			GroupLayout gl_pnlSouth = new GroupLayout(pnlSouth);
 			gl_pnlSouth.setHorizontalGroup(
-					gl_pnlSouth.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlSouth.createSequentialGroup()
-							.addGap(66).addComponent(btnDraw).addGap(38).addComponent(btnCancel).addGap(78)));
-			gl_pnlSouth
-					.setVerticalGroup(
-							gl_pnlSouth.createParallelGroup(Alignment.TRAILING)
-									.addGroup(
-											gl_pnlSouth.createSequentialGroup()
-													.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-													.addGroup(gl_pnlSouth.createParallelGroup(Alignment.BASELINE)
-															.addComponent(btnCancel).addComponent(btnDraw))
-													.addContainerGap()));
+				gl_pnlSouth.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnlSouth.createSequentialGroup()
+						.addGap(124)
+						.addComponent(btnDraw)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnCancel)
+						.addContainerGap())
+			);
+			gl_pnlSouth.setVerticalGroup(
+				gl_pnlSouth.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnlSouth.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancel)
+						.addComponent(btnDraw))
+			);
 			pnlSouth.setLayout(gl_pnlSouth);
 		}
 	}
