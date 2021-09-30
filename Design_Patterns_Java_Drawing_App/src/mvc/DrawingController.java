@@ -1169,8 +1169,8 @@ public class DrawingController {
 						center.setX(Integer.parseInt(line.substring(findLeftBracket(4, line) + 1, findComma(5, line))));
 						center.setY(Integer.parseInt(line.substring(findComma(5, line) + 2, findRightBracket(4, line))));
 						radius = (Integer.parseInt(line.substring(findEqualSign(2, line) + 1, findComma(7 ,line))));
-						innerColor = (Integer.parseInt(line.substring(findLeftBracket(5, line) + 1, findRightBracket(5, line))));
-						edgeColor = (Integer.parseInt(line.substring(findLeftBracket(6, line) + 1, findRightBracket(6, line))));
+						edgeColor = (Integer.parseInt(line.substring(findLeftBracket(5, line) + 1, findRightBracket(5, line))));
+						innerColor = (Integer.parseInt(line.substring(findLeftBracket(6, line) + 1, findRightBracket(6, line))));
 						
 						HexagonAdapter newHexagon = new HexagonAdapter(center, radius, new Color(edgeColor), new Color(innerColor));
 						
@@ -1206,8 +1206,8 @@ public class DrawingController {
 						width = Integer.parseInt(line.substring(findEqualSign(3, line) + 1, findComma(8, line)));
 						height = Integer.parseInt(line.substring(findEqualSign(4, line) + 1, findComma(9, line)));
 						
-						innerColor = Integer.parseInt(line.substring(findLeftBracket(5, line) + 1, findRightBracket(5, line)));
-						edgeColor = Integer.parseInt(line.substring(findLeftBracket(6, line) +1, findRightBracket(6, line)));						
+						edgeColor = Integer.parseInt(line.substring(findLeftBracket(5, line) + 1, findRightBracket(5, line)));
+						innerColor = Integer.parseInt(line.substring(findLeftBracket(6, line) +1, findRightBracket(6, line)));						
 					
 						Rectangle newRectangle = new Rectangle(upperLeftPoint, width, height, new Color(edgeColor), new Color(innerColor));
 						
