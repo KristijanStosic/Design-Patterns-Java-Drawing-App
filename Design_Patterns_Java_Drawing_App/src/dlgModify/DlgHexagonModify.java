@@ -27,8 +27,8 @@ public class DlgHexagonModify extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JButton btnModify;
 	private JButton btnCancel;
-	JButton btnEdgeColor;
-	JButton btnInnerColor;
+	private JButton btnEdgeColor;
+	private JButton btnInnerColor;
 	private JTextField txtXCoordinate;
 	private JTextField txtYCoordinate;
 	private JTextField txtRadius;

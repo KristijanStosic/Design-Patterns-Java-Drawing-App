@@ -486,7 +486,7 @@ public class DrawingFrame extends JFrame {
 		/* ********************** EDGE COLOR COLOR ******************** */
 		btnEdgeColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color temp = JColorChooser.showDialog(null, "Choose color", Color.RED);
+				Color temp = JColorChooser.showDialog(null, "Choose color", edgeColor);
 				if (temp != null) {
 					edgeColor = temp;
 					btnEdgeColor.setBackground(edgeColor);
@@ -497,7 +497,7 @@ public class DrawingFrame extends JFrame {
 		/* ********************** INNER COLOR ******************** */
 		btnInnerColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color temp = JColorChooser.showDialog(null, "Choose color", Color.RED);
+				Color temp = JColorChooser.showDialog(null, "Choose color", innerColor);
 				if (temp != null) {
 					innerColor = temp;
 					btnInnerColor.setBackground(innerColor);
