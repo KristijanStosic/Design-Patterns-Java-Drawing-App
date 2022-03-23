@@ -923,7 +923,7 @@ public class DrawingController {
 					cmdShapeSelect.execute(); 
 					redoStack.pop();
 					undoStack.push(cmdShapeSelect);
-					frame.getTextArea().append("Undo " + cmdShapeSelect.toString());
+					frame.getTextArea().append("Redo " + cmdShapeSelect.toString());
 				} else {
 					shape = model.getShapes().get(model.getShapes().indexOf(shape));
 					cmdShapeSelect = new CmdSelectShape(this, shape);
