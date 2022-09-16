@@ -162,4 +162,10 @@ public class HexagonAdapter extends SurfaceShape {
 
 		return ha;
 	}
+
+	@Override
+	public void selected(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -127,4 +127,10 @@ public class Line extends Shape {
 
 		return l;
 	}
+
+	@Override
+	public void selected(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
 }

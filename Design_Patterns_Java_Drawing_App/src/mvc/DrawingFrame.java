@@ -98,11 +98,7 @@ public class DrawingFrame extends JFrame {
 						new BevelBorder(BevelBorder.LOWERED, null, null, null, null)),
 				"Paint", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlMain.setBackground(Color.WHITE);
-		/*
-		 * **************************************************** PANELS
-		 * *************************************************
-		 */
-
+		
 		tglBtnPoint = new JToggleButton("");
 		tglBtnPoint.setToolTipText("Point");
 		tglBtnPoint.setIcon(new ImageIcon(DrawingFrame.class.getResource("/images/cross-shaped-target.png")));
@@ -429,39 +425,40 @@ public class DrawingFrame extends JFrame {
 						.addComponent(btnInnerColor, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
 				.addContainerGap()));
 		pnlColors.setLayout(gl_pnlColors);
+		
+		
 
 		GroupLayout gl_pnlShapes = new GroupLayout(pnlShapes);
-		gl_pnlShapes.setHorizontalGroup(gl_pnlShapes.createParallelGroup(Alignment.LEADING).addGroup(gl_pnlShapes
-				.createSequentialGroup().addContainerGap()
-				.addComponent(tglBtnPoint, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addComponent(tglBtnLine, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addComponent(tglBtnCircle, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addComponent(tglBtnDonut, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addComponent(tglBtnRectangle, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addComponent(tglBtnHexagon, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(19, Short.MAX_VALUE)));
-		gl_pnlShapes.setVerticalGroup(gl_pnlShapes.createParallelGroup(Alignment.TRAILING).addGroup(gl_pnlShapes
-				.createSequentialGroup()
-				.addGroup(gl_pnlShapes.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING,
-								gl_pnlShapes.createSequentialGroup().addContainerGap().addComponent(tglBtnHexagon,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING,
-								gl_pnlShapes.createSequentialGroup().addContainerGap().addComponent(tglBtnRectangle,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING,
-								gl_pnlShapes.createSequentialGroup().addContainerGap().addComponent(tglBtnDonut,
-										GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING,
-								gl_pnlShapes.createSequentialGroup().addContainerGap().addComponent(tglBtnCircle,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING,
-								gl_pnlShapes.createSequentialGroup().addContainerGap().addComponent(tglBtnLine,
-										GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING,
-								gl_pnlShapes.createSequentialGroup().addContainerGap().addComponent(tglBtnPoint,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-				.addContainerGap()));
+		gl_pnlShapes.setHorizontalGroup(
+			gl_pnlShapes.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnlShapes.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(tglBtnPoint, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(tglBtnLine, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(tglBtnCircle, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(tglBtnDonut, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(tglBtnRectangle, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(tglBtnHexagon, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(83, Short.MAX_VALUE))
+		);
+		gl_pnlShapes.setVerticalGroup(
+			gl_pnlShapes.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_pnlShapes.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_pnlShapes.createParallelGroup(Alignment.TRAILING)
+						.addComponent(tglBtnHexagon, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(tglBtnRectangle, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(tglBtnDonut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(tglBtnCircle, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(tglBtnLine, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(tglBtnPoint, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+					.addContainerGap())
+		);
 		pnlShapes.setLayout(gl_pnlShapes);
 
 		GroupLayout gl_pnlActions = new GroupLayout(pnlActions);

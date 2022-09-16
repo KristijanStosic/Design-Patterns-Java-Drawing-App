@@ -48,12 +48,14 @@ import dlgdraw.DlgDrawCircle;
 import dlgdraw.DlgDrawDonut;
 import dlgdraw.DlgDrawHexagon;
 import dlgdraw.DlgDrawRectangle;
+import dlgdraw.DlgDrawSquare;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
+import geometry.Square;
 import observer.BtnObserver;
 import observer.BtnObserverUpdate;
 import strategy.SaveLog;
@@ -200,7 +202,23 @@ public class DrawingController {
 					undoStack.push(command);
 					redoStack.clear();
 				}
-			} else if (frame.getTglBtnDonut().isSelected()) {
+			} /*else if (frame.getTglBtnSquare().isSelected()) {
+				DlgDrawSquare dlgDrawSquare = new DlgDrawSquare();
+				dlgDrawSquare.setVisible(true);
+
+				if (dlgDrawSquare.isOk()) {
+					Square s = new Square(thirdPoint, Integer.parseInt(dlgDrawSquare.getTxtSide().getText()));
+					s.setColor(edgeColor);
+					s.setInnerColor(innerColor);
+					command = new CmdAddShape(model, s);
+					command.execute();
+					frame.getTextArea().append(command.toString());
+					undoCounter++;
+					undoStack.push(command);
+					redoStack.clear();
+					frame.getView().repaint();
+				}
+			}*/ else if (frame.getTglBtnDonut().isSelected()) {
 				DlgDrawDonut dlgDrawDonut = new DlgDrawDonut();
 				dlgDrawDonut.setVisible(true);
 
@@ -427,10 +445,10 @@ public class DrawingController {
 	}
 
 	/* *************************************************** UNDO ******************************************************** */
-	/*public void undo() {
+	public void undo() {
 		command = undoStack.peek();
 		command.unexecute();
-		if (command instanceof CmdShapeRemove) {
+		if (command instanceof CmdRemoveShape) {
 			redoShapesList.add(undoShapesList.get(undoShapesList.size() - 1));
 			selectedShapes.add(undoShapesList.get(undoShapesList.size() - 1));
 			undoShapesList.remove(undoShapesList.size() - 1);
@@ -443,13 +461,13 @@ public class DrawingController {
 		redoStack.push(command);
 		undoRedoButtons();
 		enableDisableButtons();
-	}*/
+	}
 
 	/* *************************************************** REDO ******************************************************** */
-	/*public void redo() {
+	public void redo() {
 		command = redoStack.peek();
 		command.execute();
-		if (command instanceof CmdShapeRemove) {
+		if (command instanceof CmdRemoveShape) {
 			undoShapesList.add(redoShapesList.get(redoShapesList.size() - 1));
 			selectedShapes.remove(redoShapesList.get(redoShapesList.size() - 1));
 			redoShapesList.remove(redoShapesList.size() - 1);
@@ -462,10 +480,10 @@ public class DrawingController {
 		undoStack.push(command);
 		undoRedoButtons();
 		enableDisableButtons();
-	}*/
+	}
 	
 	/* *************************************************** UNDO ******************************************************** */
-	public void undo() {
+	/*public void undo() {
         command = undoStack.peek();
         
         if(command instanceof CmdRemoveShape) {
@@ -492,11 +510,11 @@ public class DrawingController {
         frame.repaint();
         undoRedoButtons();
         enableDisableButtons();
-    }
+    }*/
 	/* *************************************************** UNDO ******************************************************** */
     
 	/* *************************************************** REDO ******************************************************** */
-    public void redo() {
+    /*public void redo() {
         command = redoStack.peek();
         
         if(command instanceof CmdRemoveShape) {
@@ -528,7 +546,7 @@ public class DrawingController {
         frame.repaint();
         undoRedoButtons();
         enableDisableButtons();
-    }
+    }*/
     /* *************************************************** REDO ******************************************************** */
 
 	/* *************************************************** TO BACK ******************************************************** */
