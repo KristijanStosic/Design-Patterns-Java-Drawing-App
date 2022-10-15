@@ -14,8 +14,6 @@ public abstract class Shape implements Moveable, Comparable, Serializable {
 	private Color color;
 
 	public abstract void draw(Graphics g);
-	
-	public abstract void selected(Graphics g);
 
 	public abstract boolean contains(int x, int y);
 

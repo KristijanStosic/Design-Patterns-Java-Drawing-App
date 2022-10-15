@@ -48,14 +48,12 @@ import dlgdraw.DlgDrawCircle;
 import dlgdraw.DlgDrawDonut;
 import dlgdraw.DlgDrawHexagon;
 import dlgdraw.DlgDrawRectangle;
-import dlgdraw.DlgDrawSquare;
 import geometry.Circle;
 import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Shape;
-import geometry.Square;
 import observer.BtnObserver;
 import observer.BtnObserverUpdate;
 import strategy.SaveLog;
@@ -202,23 +200,7 @@ public class DrawingController {
 					undoStack.push(command);
 					redoStack.clear();
 				}
-			} /*else if (frame.getTglBtnSquare().isSelected()) {
-				DlgDrawSquare dlgDrawSquare = new DlgDrawSquare();
-				dlgDrawSquare.setVisible(true);
-
-				if (dlgDrawSquare.isOk()) {
-					Square s = new Square(thirdPoint, Integer.parseInt(dlgDrawSquare.getTxtSide().getText()));
-					s.setColor(edgeColor);
-					s.setInnerColor(innerColor);
-					command = new CmdAddShape(model, s);
-					command.execute();
-					frame.getTextArea().append(command.toString());
-					undoCounter++;
-					undoStack.push(command);
-					redoStack.clear();
-					frame.getView().repaint();
-				}
-			}*/ else if (frame.getTglBtnDonut().isSelected()) {
+			} else if (frame.getTglBtnDonut().isSelected()) {
 				DlgDrawDonut dlgDrawDonut = new DlgDrawDonut();
 				dlgDrawDonut.setVisible(true);
 

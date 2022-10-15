@@ -153,10 +153,4 @@ public class Rectangle extends SurfaceShape {
 
 		return r;
 	}
-
-	@Override
-	public void selected(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -148,10 +148,4 @@ public class Circle extends SurfaceShape {
 		return c;
 	}
 
-	@Override
-	public void selected(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

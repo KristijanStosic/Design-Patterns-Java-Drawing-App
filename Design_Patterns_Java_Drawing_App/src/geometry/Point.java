@@ -112,11 +112,4 @@ public class Point extends Shape {
 	public String toString() {
 		return "Point: (" + x + ", " + y + "), " + "Color: ("+Integer.toString(getColor().getRGB())+")";
 	}
-
-	@Override
-	public void selected(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
